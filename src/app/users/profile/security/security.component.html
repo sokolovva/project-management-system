@@ -1,0 +1,42 @@
+<div class="main-table">
+  <h1>Change your password</h1>
+  <div class="back-button">
+    <p-button [icon]="'fa fa-sign-out'" title="Back" (click)="navigateBack()"></p-button>
+  </div>
+  <form novalidate [formGroup]="changePassForm" class="main-form" id="change-pass-form">
+    <span>
+      <section>
+        <input type="password" size="30" pInputText appPassword formControlName="currentPass"
+          placeholder="Current Password">
+      </section>
+      <span *ngIf="changePassForm.get('currentPass').errors?.required && changePassForm.get('currentPass').touched"
+        class="invalid">
+        Please confirm your password.
+      </span>
+    </span>
+    <div formGroupName="passwords">
+      <section>
+        <input type="password" size="30" pInputText appPassword formControlName="password1" placeholder="New Password">
+      </section>
+      <span
+        *ngIf="changePassForm.get('passwords.password1').errors?.required && changePassForm.get('passwords.password1').touched"
+        class="invalid">
+        Please enter password.
+      </span>
+      <section>
+        <input type="password" size="30" pInputText appPassword formControlName="password2"
+          placeholder="Confirm Password">
+      </section>
+      <span
+        *ngIf="changePassForm.get('passwords.password2').errors?.required && changePassForm.get('passwords.password2').touched"
+        class="invalid">
+        Please confirm your password.
+      </span>
+      <span *ngIf="changePassForm.hasError('match')" class="invalid">
+        The confirmation does not match the passwords.
+      </span>
+    </div>
+    <div>{{message}}</div>
+    <p-button label="Save Password" [disabled]="!changePassForm.valid" (click)="savePassword()"></p-button>
+  </form>
+</div>

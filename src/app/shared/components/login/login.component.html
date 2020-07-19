@@ -1,0 +1,24 @@
+<form novalidate (ngSubmit)="login()" [formGroup]="loginForm" class="main-form">
+  <div class="login-register-div">
+    <section>
+      <input type="text" size="30" pInputText formControlName="username" placeholder="Username"
+        pTooltip="Enter your username" tooltipEvent="focus" showDelay="1000" hideDelay="500">
+      <br>
+      <span *ngIf="loginForm.get('username').errors?.required && loginForm.get('username').touched" class="invalid">
+        Please enter your user name.
+      </span>
+    </section>
+    <section>
+      <input type="password" size="30" pInputText appPassword formControlName="password" placeholder="Password"
+        pTooltip="Enter your password" tooltipEvent="focus" showDelay="1000" hideDelay="500">
+      <span *ngIf="loginForm.get('password').errors?.required && loginForm.get('password').touched" class="invalid">
+        Please enter your password.
+      </span>
+    </section>
+    <span *ngIf="wrongCredentials" class="invalid" id="wrongCredentials">
+      Invalid user name or password.
+    </span>
+    <br>
+    <p-button label="Login" [disabled]='!loginForm.valid' class="user-button"></p-button>
+  </div>
+</form>

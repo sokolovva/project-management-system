@@ -1,0 +1,21 @@
+<div class="main-content">
+  <div id="userInfo">
+    <div>
+      <p-menu [model]="profileMenu"></p-menu>
+      <div class="userProfile">
+        <span>User Name:
+          {{currentUser.username}}</span>
+        <span>Full Name:
+          {{currentUser.fullName}}</span>
+      </div>
+    </div>
+    <div id="photo-div">
+      <div class="upload-btn-wrapper">
+        <button class="btn">Choose photo</button>
+        <input type="file" name="myfile" (change)="handleFileInput($event?.target?.files)" />
+      </div>
+      <img [src]='imgUrl'>
+      <button class="btn">Save photo</button>
+    </div>
+  </div>
+</div>

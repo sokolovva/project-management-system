@@ -1,0 +1,101 @@
+@import '../styles.scss';
+
+main {
+  @include width-margin(80%, auto, auto);
+
+  h1 {
+    text-align: center;
+    display: inline-block;
+    font-size: 2em;
+  }
+
+  img {
+    @include width-margin(227px, 213px, auto);
+    vertical-align: middle;
+    border-radius: 50%;
+    border: 6px solid rgb(114, 114, 114);
+    -webkit-box-shadow: 6px 6px 5px 0px #faa41a;
+    -moz-box-shadow: 6px 6px 5px 0px #faa41a;
+    box-shadow: 6px 6px 5px 0px #faa41a;
+  }
+}
+
+.main-content form {
+  @include width-margin(80%, auto, auto);
+}
+
+section {
+  @include width-margin(99%, auto, auto);
+}
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem {
+  @include width-margin(50% !important, auto, 0px);
+}
+
+p-tabmenu .ui-tabmenu.ui-tabmenu-nav.ui-tabmenuitem.ui-state-active li {
+  background-color: rgb(172, 171, 171) !important;
+  border: 1px solid #8dd6f8;
+}
+
+#welcomeMessage {
+  color: #faa41a;
+  ;
+  display: block;
+  text-indent: 40px;
+  font-size: 20px;
+}
+
+.inline-block-height {
+  display: inline-block;
+  height: 100%;
+}
+
+#headerDiv {
+  @extend .inline-block-height;
+  width: 57%;
+  text-indent: 12px;
+
+  div {
+    margin-left: 223px;
+    color: white;
+  }
+
+  a {
+    float: left;
+    width: 17%;
+  }
+}
+
+#menuDiv {
+  @extend .inline-block-height;
+  width: 74%;
+}
+
+@media only screen and (max-width: 1374px) {
+  #headerDiv {
+    width: 64%;
+
+    div {
+      width: 74%;
+    }
+  }
+
+  #menuDiv {
+    width: 36%;
+  }
+}
+
+@media only screen and (max-width: 1151px) {
+  #menuDiv {
+    width: 98%;
+    margin-top: 15px;
+  }
+
+  main {
+    width: 95%;
+  }
+}
+
+span {
+  font-size: 20px;
+}

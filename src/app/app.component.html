@@ -1,0 +1,23 @@
+<div>
+  <main>
+    <div>
+      <div id="headerDiv">
+        <a href="">
+          <img src="../assets/logo.png" alt="">
+        </a>
+        <div>
+          <h1>Project Management System</h1>
+          <span *ngIf="currentUser$ | async as currentUser" id="welcomeMessage">Welcome,
+            {{currentUser?.username}}!</span>
+        </div>
+      </div>
+      <div id="menuDiv">
+        <p-tabMenu [model]="routes">
+        </p-tabMenu>
+      </div>
+    </div>
+    <section class="main-content">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

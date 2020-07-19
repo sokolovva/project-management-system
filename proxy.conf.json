@@ -1,0 +1,7 @@
+{
+    "/pm/*": {
+      "target": "http://localhost:8080/project-managment",
+      "secure": false,
+      "logLevel": "debug"
+    }
+  }

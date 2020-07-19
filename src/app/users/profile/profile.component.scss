@@ -1,0 +1,123 @@
+#profileMain>div>img{
+    width: 60%;
+    border-radius: 50%;
+}
+
+#userInfo{
+    border: 1px solid white;
+    height: 359px;
+}
+
+#photo-div{
+    float: right;
+    width: 18%;
+}
+
+#userInfo div, #userInfo h1{
+    display: inline-block;
+}
+
+#userInfo>div:first-of-type{
+    height: 355px;
+    width: 80%;
+}
+
+#userInfo div h1 {
+    width: 100%;
+    text-indent: 33px;
+    color: black;
+    text-decoration: underline;
+    margin-top: 50px;
+}
+
+#userInfo>div>div{
+    width: 100%;
+    font-size: 24px;
+    color: rgb(95, 93, 93);
+}
+
+#userInfo{
+   background-color: white;
+   height: 100%;
+}
+
+#userInfo span{
+    display: block;
+}
+
+.userProfile{
+    background-color: aliceblue;
+    border-radius: 20px;
+    margin-top: 40px;
+    padding: 30px;
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+}
+  
+.upload-btn-wrapper input[type=file] {
+font-size: 100px;
+position: absolute;
+right: 0;
+bottom: 0;
+opacity: 0;
+}
+
+img{
+width: 100%;
+height: 304px;
+object-fit: cover;
+}
+
+div.main-content{
+height: 418px;
+}
+
+.btn{
+width: 100%;
+background: #D0ECF8!important;
+height: 53px;
+border: 1px solid #a0def7!important;
+font-size: 18px;
+}
+
+button .ui-button.ui-widget.ui-state-default.ui-corner-all{
+    width: 100% !important;
+}
+
+@media only screen and (max-width: 1400px) {
+    #userInfo>div:first-of-type{
+        width: 70%;
+    }
+
+    #photo-div{
+        float: right;
+        width: 28%;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    #userInfo>div:first-of-type{
+        width: 60%;
+    }
+
+    #photo-div{
+        float: right;
+        width: 38%;
+    }   
+}
+
+@media only screen and (max-width: 620px) {
+    #userInfo>div:first-of-type{
+        width: 100%;
+    }
+
+    #photo-div{
+        margin-top: 40px;
+        width: 100%;
+    }
+}

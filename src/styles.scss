@@ -1,0 +1,322 @@
+
+@mixin width-margin($width, $height, $margin) {
+  width: $width;
+  height: $height;
+  margin: $margin;
+}
+
+
+*{
+  border-style: border-box;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+ 
+h1{
+  font-size: 2.0rem;
+}
+
+.main-table{
+  @include width-margin(99%, 30px auto, 38px 0px);
+    background:#e7f2fb;
+    text-align: center;
+    overflow: hidden;
+    max-height: 1500px;    
+    -webkit-box-shadow: 7px 7px 5px 0px #a89fa8;
+    -moz-box-shadow: 7px 7px 5px 0px #a89fa8;
+    box-shadow: 7px 7px 5px 0px #a89fa8;
+    border-radius: 7px;
+}
+
+
+.emptyTable{
+  background: whitesmoke ;
+  min-height: 200px ;
+  font-size: 24px ;
+  padding:90px;
+  margin: 20px 0px;
+  -webkit-box-shadow: 7px 7px 5px 0px #a89fa8;
+  -moz-box-shadow: 7px 7px 5px 0px #a89fa8;
+  box-shadow: 7px 7px 5px 0px #a89fa8;
+  border: 2px solid aliceblue;
+  border-radius: 7px;
+}
+
+
+
+p-table {
+    overflow: scroll;
+    text-align: center;
+}
+
+
+.main-form{
+    margin-top: 50px;
+}
+
+h1.table-header{
+  height: 52px;
+  padding-top: 12px;
+}
+
+
+#toast-container > div {
+  opacity:1;
+  background-color:#faa41a;
+}
+
+
+h1{
+    display: inline-block;
+}
+
+.deleteSelected{
+  p, p-button{
+    display: block;
+  }
+  p{
+    color: rgb(255, 86, 108);
+  }
+}
+table> thead>  tr > th.ui-sortable-column.ng-star-inserted.ui-state-highlight{
+   background-color: #9acaea;
+}
+
+body{
+       background-image: url('/assets/background.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: auto;
+        min-height: 1170px;
+}
+
+button {
+    background-color: #7bbcea !important;
+    border: 1px solid whitesmoke !important;
+}
+
+button:hover {
+    background-color: gray  !important;
+}
+
+.greenColor{
+  background-color: #ddf7d4 !important;
+}
+
+
+p-tabmenu .ui-tabmenu.ui-widget.ui-widget-content{
+    width: auto;
+    font-size: 1.5em;
+    float: right;
+    li{
+      background-color: rgb(216, 215, 215);
+      border: 1px solid white;
+    }
+  }
+
+
+
+  div .ui-dialog-content.ui-widget-content{
+    height: auto;
+  }
+
+  main>div:first-of-type{
+    margin: 119px 5px 86px  5px;
+  }
+
+  body .ui-button.ui-button-icon-only {
+   width: 2.357em;
+}
+
+  .user-information{
+    margin: px 0px 45px 0px;
+  }
+
+tr:hover{
+    cursor:pointer;
+  }
+  
+  tr>td:hover{
+    background-color: whitesmoke;
+  }
+
+
+  p-button.main-button button{
+    height: 61px;
+    width: 213px;
+
+  }
+
+
+  .main-table table tr:hover{
+    background-color:#E8E8E8 !important;
+  }
+
+
+
+  div.login-register-div, #editProjectForm div, #assignUsersForm, #createTaskForm>div{
+    @include width-margin(63%, auto, 30px auto);
+    background-color: aliceblue;
+    border-radius: 33px;
+    padding: 27px;
+  }
+  
+
+  p-menu li.ui-menuitem {
+    background-color: #faa41a !important;
+  }
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+    border: 1px solid gray;
+    border-radius: 20px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(175, 228, 240); 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(178, 248, 253); 
+  }
+
+p-dialog.userDialog div.ui-dialog.ui-widget, p-dialog.taskDialog div.ui-dialog.ui-widget{
+  
+  @include width-margin(80%, auto, 0px);
+    left: 22%;
+    transform: none;
+    opacity: 1;
+  }
+  
+  div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-dialog-draggable{
+    top: 100px !important; 
+    width: 1200px !important;
+  }
+
+  .p-dialogDiv>div{
+    border: 1px solid aliceblue;
+    text-align:center;
+    width: 100%;
+    background: rgb(237, 247, 248);
+}
+
+
+
+p-dialog div.ui-dialog-titlebar.ui-widget-header {
+  background-color: aliceblue;
+  text-align: center;
+  font-size: 22px;
+}
+
+
+.invalid{
+  color:rgb(255, 86, 108);
+}
+
+.aliceblue{
+  background: aliceblue;
+  width: 98%;
+  margin: auto;
+}
+
+.back-button{
+  float:right;
+}
+
+.back-button button{
+  width: 80px !important;
+  height: 49px;
+  background-color: #4aa3e2;
+}
+
+.back-button button:hover{
+  background-color: rgb(108, 134, 145) !important;
+}
+.fa-exclamation-circle{
+  color: #00abff !important;
+}
+
+.text-intended
+{
+  text-indent: 95px;
+}
+
+@media only screen and (max-width: 1000px){
+  div.login-register-div, #editProjectForm div, #assignUsersForm, #createTaskForm>div{
+    @include width-margin(100%, auto, 30px auto);}
+
+    #change-pass-form{
+      width: 72% !important;
+  }
+}
+
+
+@media only screen and (max-width: 2133px) {
+  p-tabmenu .ui-tabmenu.ui-widget.ui-widget-content li span.ui-menuitem-text {
+    display: none;
+  }
+  
+}
+
+
+ul .ui-tabmenu-nav.ui-helper-reset.ui-helper-clearfix.ui-widget-header{
+  border-bottom: none !important;
+}
+
+div.main-table>h1{
+  text-indent: 19px;
+  margin-top: 60px;
+}
+
+
+
+p-progressbar div.ui-progressbar-value.ui-progressbar-value-animate.ui-widget-header.ui-corner-all{
+  background-color: #ddf7d4;
+}
+
+li.ui-tabmenuitem.ui-state-default.ui-corner-top.ui-tabmenuitem-hasicon.ui-state-active{
+  background-color: #7bbcea;
+  border: 1px solid #cfeffc;
+}
+
+button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only{
+  width: 150%;
+  height: 69px;
+
+}
+
+
+.oneIcon{
+  width: 47px;
+}
+
+div.main-table div.header{
+  height: 49px;
+  color:white;
+  background: #9cc3e4;
+}
+
+div.main-table div.header h1{
+  line-height: 45px;
+}
+
+
+
+.twoIcons{
+  width:91px;
+}
+
+
+
+.lessWidth{
+  width: 178px;
+}
+
+

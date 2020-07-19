@@ -1,0 +1,25 @@
+.text-align{ 
+    text-align: center;
+}
+
+.header-div{
+    @extend  .text-align;
+    background: aliceblue;
+    border-radius: 20px;
+    padding: 25px;
+}
+
+.form {
+    @extend .text-align;
+    width: 26%;
+    margin: auto;
+    select{
+        width: 301px;
+        height: 40px;
+        margin-bottom: 21px;
+    }
+    p-button{
+        margin-left: -53px;
+        width: 40%;
+    }
+}

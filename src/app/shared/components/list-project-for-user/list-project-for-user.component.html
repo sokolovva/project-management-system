@@ -1,0 +1,38 @@
+<ng-template #noProjects>
+  <div class="emptyTable"><span class="fa fa-exclamation-circle"></span>
+    {{u?.username}} doesn't have any projects assigned yet!
+  </div>
+</ng-template>
+
+<div *ngIf="userProjects && !!userProjects; else noProjects" class="aliceblue">
+  <div class="main-table">
+    <h2>Projects</h2>
+    <p-table [value]="userProjects  |  paginate: { itemsPerPage: 10 , currentPage: page[0], id: 'first' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Key</th>
+          <th>Title</th>
+          <th>Options</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-pr>
+        <tr>
+          <td>{{pr.key}}</td>
+          <td>{{pr.title}} </td>
+          <td>
+            <p-button title="List Users" [icon]="'fa fa-users'" (click)="getUsers(pr)"></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <pagination-controls (pageChange)="page[0] = $event" id="first"></pagination-controls>
+  </div>
+</div>
+
+<div *ngIf="showUsers">
+  <div class="main-table">
+    <button class="hide fa fa-close" id="closeButton" (click)="showUsers=false" title="Close"></button>
+    <app-list-users [users]="usersInProject" [project]="project" (closeButtonClicked)="showUsers=false">
+    </app-list-users>
+  </div>
+</div>

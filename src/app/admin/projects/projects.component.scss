@@ -1,0 +1,31 @@
+#editProjectForm input{
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#assignUsersForm input{
+  width: 10%;
+  height: 20px;
+}
+
+#assignUsersForm>div{
+  font-size: 25px;
+  width: 100%;
+}
+
+#assignUsersForm>div:last-of-type{
+  margin-bottom: 19px;
+}
+
+p-table th:last-of-type{
+  width: 142px;
+}
+
+div.availableUsers{
+width: 30%;
+margin: auto;
+}
+
+div.availableUsers span{
+width: 89%;
+}

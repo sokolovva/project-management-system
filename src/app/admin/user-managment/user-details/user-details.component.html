@@ -1,0 +1,11 @@
+<div class="main-table">
+    <div class="header">
+        <h1 class="text-intended">{{user?.username}}'s information</h1>
+        <div class="back-button"><p-button [icon]="'fa fa-sign-out'" title="Back" (click)="navigateBack()"></p-button>
+        </div>
+     </div>
+    <div class="user-information">
+        <app-list-project-for-user [user]="user" 
+                                   [showProgress]="true" ></app-list-project-for-user>
+    </div>
+</div>

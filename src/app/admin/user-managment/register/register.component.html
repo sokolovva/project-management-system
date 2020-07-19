@@ -1,0 +1,60 @@
+<form novalidate [formGroup]="registerForm" class="main-form">
+  <div class="login-register-div">
+    <div>
+      <input id="float-input" type="text" size="30" pInputText formControlName="ID" *ngIf="false">
+      <div *ngIf="!registerForm.get('ID').value">
+        <section>
+          <input id="float-input" type="text" size="30" pInputText formControlName="username" placeholder="Username*"
+            pTooltip="Enter username" tooltipEvent="focus" showDelay="1000" hideDelay="500">
+          <span *ngIf="registerForm.get('username').errors?.required && registerForm.get('username').touched"
+            class="invalid">
+            Please enter user name.
+          </span>
+        </section>
+      </div>
+      <div>
+        <div formGroupName="passwords">
+          <section>
+            <input id="float-input" type="password" size="30" pPassword appPassword formControlName="password1"
+              placeholder="Password*" pTooltip="Enter password" tooltipEvent="focus" showDelay="1000" hideDelay="500">
+            <span
+              *ngIf="registerForm.get('passwords.password1').errors?.required && registerForm.get('passwords.password1').touched"
+              class="invalid">
+              Please enter password.
+            </span>
+          </section>
+          <section>
+            <input id="float-input" type="password" size="30" pInputText appPassword formControlName="password2"
+              placeholder="Confirm Password*" pTooltip="Repeat password" tooltipEvent="focus" showDelay="1000"
+              hideDelay="500">
+            <span
+              *ngIf="!registerForm.get('ID').value && registerForm.get('passwords.password2').errors?.required && registerForm.get('passwords.password2').touched"
+              class="invalid">
+              Please confirm your password.
+            </span>
+          </section>
+          <span *ngIf="registerForm.get('passwords').errors?.match" class="invalid">
+            The confirmation does not match the passwords.
+          </span>
+        </div>
+      </div>
+      <section>
+        <input id="float-input" type="text" size="30" pInputText formControlName="fullName" placeholder="Full Name*"
+          pTooltip="Enter your Full Name" tooltipEvent="focus" showDelay="1000" hideDelay="500">
+        <span
+          *ngIf="!registerForm.get('ID').value && registerForm.get('fullName').errors?.required && registerForm.get('fullName').touched"
+          class="invalid">
+          Please enter your name.
+        </span>
+      </section>
+    </div>
+    <div id='radioButtons'>
+      <p-radioButton name="groupname" value="NORMAL_USER" label="User" formControlName="role"></p-radioButton>
+      <p-radioButton name="groupname" value="ADMIN" label="Admin" formControlName="role"></p-radioButton>
+    </div>
+    <p-button label="Register" *ngIf="!registerForm.get('ID').value" [disabled]="!registerForm.valid"
+      (click)="register()" class="user-button"></p-button>
+    <p-button label="Edit" *ngIf="registerForm.get('ID').value" [disabled]="!registerForm.valid" (click)="edit()"
+      class="user-button"></p-button>
+  </div>
+</form>

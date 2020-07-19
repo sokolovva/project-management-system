@@ -1,0 +1,21 @@
+@import '../profile.component.scss';
+#changePass{
+    margin-top: 114px;
+}  
+
+#change-pass-form{
+    width: 32%;
+    margin: 20px auto;
+    input.ui-inputtext.ui-corner-all.ui-state-default.ui-widget{
+      width: 100%;
+      margin-top: 10px;
+    }
+}
+
+h1{
+    text-indent: 60px;
+}
+
+#change-pass-form p-button{
+  margin: 11px 0px 0px -95px !important;
+}

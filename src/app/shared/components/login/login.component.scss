@@ -1,0 +1,37 @@
+@import '../../../../styles.scss';
+
+input{
+    @include width-margin(100%, 50px, 0px 0px 20px 0px);
+}
+
+button.ui-button-text.ui-clickable {
+    @include width-margin(334px, 42px, 0px);
+    padding: 0.429em 1em;
+    font-size: 21px; 
+}
+
+div.login-register-div button.ui-buttonui-widget.ui-state-default  span{
+    width: 200px;
+}
+
+.user-button{
+    margin: 10px 0px;
+}
+    
+#radioButtons{
+    margin: 14px 0px;
+    font-size: 18px;
+}
+
+#radioButtons p-radiobutton{
+    margin-right: 23px;
+}
+
+section input{
+    width: 96%;
+    margin: 18px 0px 11px 0px;
+}
+
+section:last-of-type{
+    margin-bottom: 20px;
+}

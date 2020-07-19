@@ -1,0 +1,30 @@
+<div class="main-table">
+  <div *ngIf="users && !!users.length">
+    <h2 class="blockHeader">Users</h2>
+    <p-table [value]="users |  paginate: { itemsPerPage: 10 , currentPage: page[0], id: 'first'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th> ID </th>
+          <th> Username</th>
+          <th> Full Name</th>
+          <th *ngIf="showOptions" class='oneIcon'> Option</tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-u>
+        <tr>
+          <td> {{u.id}}</td>
+          <td>{{u.username}}</td>
+          <td>{{u.fullName}}</td>
+          <td *ngIf="showOptions">
+            <p-button title="User Information" [icon]="'fa fa-info'" (click)=userInfoClick.emit(u.id)></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <pagination-controls (pageChange)="page[0] = $event" id="first"></pagination-controls>
+  </div>
+  <div *ngIf="users && users.length===0">
+    <h1>
+      <span class="fa fa-exclamation-circle"></span> There are no users to show.
+    </h1>
+  </div>
+</div>
