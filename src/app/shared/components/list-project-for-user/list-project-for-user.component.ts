@@ -1,9 +1,8 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {ProjectService} from '../../services/project.service';
 import {User} from 'src/app/_models/user';
 import {Project} from 'src/app/_models/project';
 import {UserService} from '../../services/user.service';
-import {AuthService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-list-project-for-user',
@@ -11,8 +10,6 @@ import {AuthService} from '../../services/authentication.service';
   styleUrls: ['./list-project-for-user.component.scss']
 })
 export class ListProjectForUserComponent implements OnChanges {
-  page = [1, 1];
-  
   public userProjects: Project[] = [];
   public usersInProject: User[] = [];
   public project: Project;

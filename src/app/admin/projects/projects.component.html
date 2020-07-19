@@ -1,14 +1,5 @@
 <p-messages [(value)]="msgs"></p-messages>
 <div class="main-table">
-  <div style="float: left" class="deleteSelected">
-    <p-button *ngIf="projects && !!projects.length" 
-              class="main-button" 
-              type="button"  
-              label="Delete Selected"
-              [icon]="'fa fa-trash-o'"
-              (onClick)="deleteSelected()"></p-button>
-    <p>{{deleteMessage}}</p>
-  </div>
   <h1 class="table-header">Project Management</h1>
   <p-button class="float-right main-button" 
             type="button"
@@ -50,9 +41,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr [pSelectableRow]="rowData" (dblclick)="showDialog(rowData)">
-        <td>
-          <p-checkbox name="groupname" [value]="rowData" [(ngModel)]="selectedValues" (onChange)="hideMessage()"></p-checkbox>
-        </td>
         <td *ngFor="let col of columns">
           {{rowData[col.field]}}
         </td>

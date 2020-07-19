@@ -14,17 +14,17 @@ import {ToastrService} from 'ngx-toastr';
 })
 
 export class ProjectsComponent implements OnInit {
-  selectedValues: Project[] = [];
-  pg = 1;
-  projectForm: FormGroup;
-  projects: Project[];
-  project: Project;
-  availableUsers: User[];
+  public selectedValues: Project[] = [];
+  public projectForm: FormGroup;
+  public projects: Project[];
+  public project: Project;
+  public availableUsers: User[];
   public manageProject: Boolean = false;
   public displayAdd: Boolean = true;
+  public messages: any = [];
   public message: string;
   public projectFields: any = [];
-  public messages: any = [];
+
   constructor(private projectService: ProjectService,
     private userService: UserService,
     private fb: FormBuilder,
@@ -62,37 +62,6 @@ export class ProjectsComponent implements OnInit {
     } else {
       this.displayAdd = true;
     }
-
-  }
-
-  public deleteSelected(): void {
-    if (this.selectedValues.length === 0) {
-      this.showMessage();
-      return;
-    } else {
-      this.confirmationService.confirm({
-        message: `Are you sure you want to delete these projects?`,
-        accept: () => {
-          this.selectedValues.forEach(pr => {
-            this.projectService.delete(pr.id).subscribe(() => {
-              this.projects.splice(this.projects.findIndex((p) => p.id === pr.id), 1);
-            });
-          });
-          this.selectedValues = [];
-        }
-      });
-    }
-  }
-
-  private showMessage(): void {
-    this.messages[0] = {severity: 'error', summary: 'Warning Message', detail: 'Please, select users to delete.'};
-    setTimeout(() => {
-      this.messages = [];
-    }, 5000);
-  }
-
-  public hideMessage(): void {
-    this.messages = [];
   }
 
   public addProject(): void {

@@ -8,8 +8,6 @@ import { Project } from 'src/app/_models/project';
   styleUrls: ['./list-users.component.scss']
 })
 export class ListUsersComponent {
-  page = [1];
-
   @Input() public users: User[] = [];
   @Input() public project: Project;
   @Input() public showOptions: Boolean = false;

@@ -10,7 +10,6 @@ import {Location} from '@angular/common';
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent implements OnInit {
-  page = [1, 1];
   public user: User;
 
   constructor(private readonly route: ActivatedRoute,
