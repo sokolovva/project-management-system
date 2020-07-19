@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Project} from '../../_models/project';
 import {ProjectService} from '../../shared/services/project.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -6,6 +6,7 @@ import {User} from 'src/app/_models/user';
 import {UserService} from '../../shared/services/user.service';
 import {ConfirmationService} from 'primeng/api';
 import {ToastrService} from 'ngx-toastr';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-projects',
@@ -13,16 +14,15 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./projects.component.scss']
 })
 
-export class ProjectsComponent implements OnInit {
-  public selectedValues: Project[] = [];
+export class ProjectsComponent implements OnInit, OnDestroy {
+  private readonly subscriptions = new Subscription();
   public projectForm: FormGroup;
   public projects: Project[];
   public project: Project;
-  public availableUsers: User[];
+  public availableUsers: User[] = [];
   public manageProject: Boolean = false;
   public displayAdd: Boolean = true;
-  public messages: any = [];
-  public message: string;
+  public message: string = '';
   public projectFields: any = [];
 
   constructor(private projectService: ProjectService,
@@ -32,14 +32,14 @@ export class ProjectsComponent implements OnInit {
     private toastService: ToastrService) {}
 
   public ngOnInit(): void {
+    this.projectService.list().subscribe(
+      projects => this.projects = projects);
+
     this.projectFields = [
       {field: 'id', header: 'ID'},
       {field: 'key', header: 'Key'},
       {field: 'title', header: 'Title'}
     ];
-
-    this.projectService.list().subscribe(
-      projects => this.projects = projects);
 
     this.projectForm = this.fb.group({
       id: [''],
@@ -48,17 +48,15 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  public showDialog(project: Project): void {
-    this.message = '';
+  public listProjects(project: Project): void {
     this.manageProject = true;
-    this.availableUsers = [];
     if (project) {
       this.project = project;
       this.displayAdd = false;
       this.projectForm.setValue({id: project.id, key: project.key, title: project.title});
-      this.userService.getAvailableUsersForProject(project.id).subscribe(projects => {
+      this.subscriptions.add(this.userService.getAvailableUsersForProject(project.id).subscribe(projects => {
         this.availableUsers = projects;
-      });
+      }));
     } else {
       this.displayAdd = true;
     }
@@ -71,41 +69,15 @@ export class ProjectsComponent implements OnInit {
         key: val.key,
         title: val.title
       };
-      this.projectService.createProject(newProject)
-        .subscribe(project => {
-          this.projects.push(project);
-          this.toastService.success('Project ' + project.title + ' was successfully added!');
-          this.manageProject = false;
-        }, (error) => {
-          this.message = 'Something went wrong. Try again later.';
-        }
-        );
-    }
-  }
-
-  public editProject(edit: boolean): void {
-    if (this.projectForm.valid) {
-      const val = this.projectForm.value;
-      const projectChanges = {
-        id: edit ? val.id : undefined,
-        key: val.key,
-        title: val.title
-      };
-      const successMessage = edit ? `Project  ${projectChanges.title} was successfully changed! `:
-                                    `Project  ${projectChanges.title} was successfully added!`;
-      const request = edit ? this.projectService.edit(projectChanges) : this.projectService.createProject(projectChanges);
-      request.subscribe(project => {
-        if (edit) {
-          const i = this.projects.indexOf(this.project);
-          this.projects[i] = project;
-        } else {}
-        this.projects.push(project);
-          this.manageProject = false;
-          this.toastService.success(successMessage);
-        }, (error) => {
-          this.message = 'Something went wrong. Try again later.';
-        }
-        );
+      this.subscriptions.add(this.projectService.createProject(newProject)
+          .subscribe(project => {
+            this.projects.push(project);
+            this.toastService.success('Project ' + project.title + ' was successfully added!');
+            this.manageProject = false;
+          }, (error) => {
+            this.message = 'Something went wrong. Try again later.';
+          }
+        ));
     }
   }
 
@@ -113,32 +85,16 @@ export class ProjectsComponent implements OnInit {
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${project.title}?`,
       accept: () => {
-        this.projectService.delete(project.id).subscribe(() => {
-          this.projects.splice(this.projects.findIndex(p => p.id === project.id), 1);
-          this.toastService.success('Project ' + project.title + ' was successfully deleted!');
-        }
-        );
+        this.subscriptions.add(this.projectService.delete(project.id).subscribe(() => {
+            this.projects.splice(this.projects.findIndex(p => p.id === project.id), 1);
+            this.toastService.success('Project ' + project.title + ' was successfully deleted!');
+          }
+        ));
       }
     });
   }
 
-  public assignUsers(): void {
-    const checkedUsers = [];
-    [].forEach.call(document.getElementsByClassName('user-checkbox'), function (element) {
-      if (element.checked) {
-        checkedUsers.push(element.value);
-      }
-    });
-    checkedUsers.forEach(u => {
-      this.projectService.assignUserToProject(u, this.project.id).subscribe(() => {
-        [].forEach.call(document.getElementsByClassName('user-checkbox'), element => {
-          if (element.checked) {
-            element.nextSibling.style.display = 'inline';
-            element.remove();
-            this.toastService.success('User was successfully assigned to ' + this.project.title + '!');
-          }
-        });
-      });
-    });
+  public ngOnDestroy(): void{
+    this.subscriptions.unsubscribe();
   }
 }

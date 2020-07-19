@@ -35,9 +35,13 @@ export class LoginComponent implements OnInit {
               user.isAdmin() ?  this.router.navigate(['home/profile']) :  this.router.navigate(['home/dashboard']);
             } else {
               this.wrongCredentials = true;
-              this.loginForm.patchValue({password: ''});
+              this.resetForm();
             }
-        });
+      });
     }
+  }
+
+  private resetForm(): void{
+    this.loginForm.patchValue({password: ''});
   }
 }

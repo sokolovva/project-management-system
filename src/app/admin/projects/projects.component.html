@@ -1,11 +1,10 @@
-<p-messages [(value)]="msgs"></p-messages>
 <div class="main-table">
   <h1 class="table-header">Project Management</h1>
   <p-button class="float-right main-button" 
             type="button"
             label="New Project"
             [icon]="'fa fa-plus'" 
-            (onClick)="showDialog(); projectForm.reset()"></p-button>
+            (onClick)="listProjects(); projectForm.reset()"></p-button>
 </div>
 
 <ng-template #noProjects>
@@ -45,7 +44,6 @@
           {{rowData[col.field]}}
         </td>
         <td>
-          <p-button title="Edit project" [icon]="'fa fa-pencil'" (click)="showDialog(rowData)"></p-button>
           <p-button title="Delete project" [icon]="'fa fa-trash-o'" (click)="deleteProject(rowData)"></p-button>
         </td>
       </tr>
@@ -53,7 +51,7 @@
   </p-table>
 </div>
 
-<p-dialog header="Create/Edit Project" [(visible)]="manageProject" [modal]="true" [dismissableMask]="true"
+<p-dialog header="Create Project" [(visible)]="manageProject" [modal]="true" [dismissableMask]="true"
   [responsive]="true">
   <form novalidate [formGroup]="projectForm" id="editProjectForm">
     <div>
@@ -80,22 +78,8 @@
       <br>
       <p-button label="Add Project" [disabled]='!projectForm.valid' *ngIf="displayAdd" (click)="editProject(false)">
       </p-button>
-      <p-button label="Edit Project" [disabled]='!projectForm.valid' *ngIf="!displayAdd" (click)="editProject(true)">
-      </p-button>
     </div>
   </form>
-  <div *ngIf="availableUsers && !!availableUsers.length">
-    <form novalidate (ngSubmit)="assignUsers()" id="assignUsersForm">
-      <div>
-        <div *ngFor="let user of availableUsers">
-          <input type="checkbox" [value]="user.id" class="user-checkbox">
-          <i class="fa fa-check" style="display: none; color:rgb(150, 238, 18)"></i>
-          {{user.username}}
-        </div>
-      </div>
-      <p-button label="Assign users to project"></p-button>
-    </form>
-  </div>
 </p-dialog>
 
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

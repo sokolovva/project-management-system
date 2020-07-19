@@ -4,7 +4,6 @@ import {User} from 'src/app/_models/user';
 import {MenuItem} from 'primeng/api';
 
 const DEFAULT_PROFILE_PICTURE: String = '../../../assets/profilePicture.png';
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',

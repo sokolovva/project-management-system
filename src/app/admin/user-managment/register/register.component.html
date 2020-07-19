@@ -54,7 +54,5 @@
     </div>
     <p-button label="Register" *ngIf="!registerForm.get('ID').value" [disabled]="!registerForm.valid"
       (click)="register()" class="user-button"></p-button>
-    <p-button label="Edit" *ngIf="registerForm.get('ID').value" [disabled]="!registerForm.valid" (click)="edit()"
-      class="user-button"></p-button>
   </div>
 </form>

@@ -2,7 +2,6 @@ import {Project} from '@src/app/_models/project';
 import {User} from '@src/app/_models/user';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {map} from 'rxjs/operators';
 
 export interface IService {
      list(projects: boolean): Observable<User[] | Project[]>;

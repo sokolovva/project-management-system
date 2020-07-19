@@ -16,12 +16,15 @@ import { Location } from '@angular/common';
 export class SecurityComponent implements OnInit {
   private currentUser: User;
   public changePassForm: FormGroup;
-  public message: String;
+  public infoMessage: String;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private userService: UserService, //
-    private toastService: ToastrService, private _location: Location) { }
+  constructor(private formBuilder: FormBuilder, 
+             private authService: AuthService, 
+             private userService: UserService,
+             private toastService: ToastrService, 
+             private _location: Location) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.currentUser = this.authService.activeUser;
     this.changePassForm = this.formBuilder.group({
       currentPass: ['', [Validators.required]],
@@ -33,18 +36,13 @@ export class SecurityComponent implements OnInit {
     this.changePassForm.reset();
   }
 
-  savePassword() {
-    const val = this.changePassForm.value;
-    const passwordData = {
-      oldPassword: val.currentPass,
-      newPassword: val.passwords.password1
-    };
-    this.userService.changePass(this.currentUser.id, val.currentPass, val.passwords.password1).subscribe(() => {
-      this.message = '';
+  public savePassword(): void {
+    const value = this.changePassForm.value;
+    this.userService.changePass(this.currentUser.id, value.currentPass, value.passwords.password1).subscribe(() => {
       this.toastService.success('You changed your password!');
       this.changePassForm.reset();
     }, () => {
-      this.message = 'You entered a wrong passwod! Try again';
+      this.infoMessage = 'You entered a wrong passwod! Try again';
     });
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {User} from 'src/app/_models/user';
@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../../shared/services/user.service';
 import {AuthService} from '../../../shared/services/authentication.service';
 import {passwordMatcher} from '../../../shared/validators/passwordMatcher.validator';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -13,58 +14,48 @@ import {passwordMatcher} from '../../../shared/validators/passwordMatcher.valida
   styleUrls: ['./register.component.scss']
 })
 
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
+  private readonly subscriptions = new Subscription();
   public registerForm: FormGroup;
 
-  @Input() public editValues: User;
   @Input() public users: User[] = [];
   @Input() public user: User;
 
   @Output() public userChanged = new EventEmitter();
 
   constructor(private fb: FormBuilder,
-              private userService: UserService,
-              private router: Router,
-              private toastService: ToastrService,
-              private authService: AuthService) {}
+    private userService: UserService,
+    private router: Router,
+    private toastService: ToastrService,
+    private authService: AuthService) {}
 
   public ngOnInit(): void {
-      this.registerForm = this.fb.group({
-        ID: [''],
-        username: ['', [Validators.required]],
-        passwords: this.fb.group({
-          password1: ['', [Validators.required]],
-          password2: ['', [Validators.required]],
-        }, {validator: passwordMatcher}),
-        fullName: ['', [Validators.required]],
-        role: ['NORMAL_USER']
-      });
-
-      if (this.editValues) {
-        this.registerForm.patchValue({
-          ID: this.editValues.id,
-          username: this.editValues.username, 
-          passwords: {password1: this.editValues.password, 
-          password2: this.editValues.password},
-          fullName: this.editValues.fullName, 
-          role: this.editValues.role
-        });
-      }
-    }
+    this.registerForm = this.fb.group({
+      ID: [''],
+      username: ['', [Validators.required]],
+      passwords: this.fb.group({
+        password1: ['', [Validators.required]],
+        password2: ['', [Validators.required]],
+      }, {validator: passwordMatcher}),
+      fullName: ['', [Validators.required]],
+      role: ['NORMAL_USER']
+    });
+  }
 
   public register(): void {
     if (!this.checkForm()) {
       return;
     }
-    const val = this.registerForm.value;
-    const currUser = {'username': val.username, 
-                      'password': val.passwords.password1, 
-                      'fullName': val.fullName, 
-                      'role': val.role
-                    };
+    const value = this.registerForm.value;
+    const user = {
+      'username': value.username,
+      'password': value.passwords.password1,
+      'fullName': value.fullName,
+      'role': value.role
+    };
 
-    this.userService.create(new User(currUser))
-      .subscribe(user => {
+    this.subscriptions.add(this.userService.create(new User(user))
+      .subscribe(newUser => {
         if (this.authService.activeUser) {
           this.userChanged.emit();
           this.router.navigate(['/user/listUsers']);
@@ -73,34 +64,17 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/authenticate']);
           this.toastService.success('Your account was successfully created!', 'You can log in!');
         }
-        this.users.push(user);
+        this.users.push(newUser);
       }
-      );
+      ));
   }
 
-  public edit(): void {
-    if (!this.checkForm()) {
-      return;
-    }
-    const val = this.registerForm.value;
-    const currUser = {
-      'id': val.id,
-      'username': val.username,
-      'password': val.passwords.password1, 
-      'fullName': val.fullName, 
-      'role': val.role
-    };
-    
-    this.userService.edit(new User(currUser))
-      .subscribe(user=> {
-        this.users[this.users.indexOf(this.user)] = user;
-        this.userChanged.emit();
-        this.toastService.success('You changed user ' + user.username + '!');
-      });
-  }
-
-  public checkForm(): boolean{
+  public checkForm(): boolean {
     return this.registerForm.valid;
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
 

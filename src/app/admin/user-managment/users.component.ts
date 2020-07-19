@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import {RolePipe} from '@src/app/shared/pipes/role.pipe';
 import {Subscription} from 'rxjs';
 
+const TIMEOUT = 5000;
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -62,7 +63,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.messages[0] = {severity: 'error', summary: 'Warning Message', detail: 'Please, select users to delete.'};
     setTimeout(() => {
     this.messages = [];
-    }, 5000);
+    }, TIMEOUT);
   }
 
   public hideMessage(): void {
